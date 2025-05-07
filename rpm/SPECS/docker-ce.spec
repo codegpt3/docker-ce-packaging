@@ -21,12 +21,11 @@ Requires: docker-ce-cli
 Requires: container-selinux >= 2:2.74
 Requires: libseccomp >= 2.3
 Requires: systemd
-%if 0%{?rhel} >= 8
-Requires: ( iptables or nftables )
-%else
 Requires: iptables
-%endif
+%if %{undefined rhel} || 0%{?rhel} < 9
+# Libcgroup is no longer available in RHEL/CentOS >= 9 distros.
 Requires: libcgroup
+%endif
 Requires: containerd.io >= 1.2.2-3
 Requires: tar
 Requires: xz
